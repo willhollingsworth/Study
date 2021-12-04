@@ -6,7 +6,7 @@
 import random
 
 def isBadVersion(num,length):
-    bad_version = 3
+    bad_version = 9
     if num >= bad_version:
         return True
     else: 
@@ -18,31 +18,49 @@ class Solution:
         :type n: int
         :rtype: int
         """
-        test = length/2
-        last_good = 0
+        high = length
+        low = 0
+        test = int(length/2)
         while True:
-            if isBadVersion(test,length):
-                print(test,'is bad')
-                if last_good == test-1:
+            if low == high - 1:
                     break
-                test = int(test/2)
+            if isBadVersion(test):
+                print(test,'is bad')
+                high = test
+                test = high - int((high - low)/2)
             else:
                 print(test,'is good')
-                last_good = test
+                low = test
+                test = int((high - low)/2) + low
+        print('last bad version is',high)
+        return high
+    
+solution = Solution()
+
+solution.firstBadVersion(12)
+    
                 
-                test = test + int(test/2)
-        return test            
         # isBadVersion(3)
         # return
             
-        ''''
+''''
+        second method storing a high and low value
+        b7 L12
+        t6 g
+        t9 b
+        
+        
+        
+        
+        
+        first method, works
         bad = 3, length = 8
         test 4 = bad
         test 2 = good
         test 3 = bad
         
         
-        
+        first method
         this doesnt work if you round up or down
         bad 7 , length = 12 (round up) 
         6 good
@@ -57,7 +75,4 @@ class Solution:
         
         
         
-        '''    
-solution = Solution()
-
-print(solution.firstBadVersion(8))
+'''    
