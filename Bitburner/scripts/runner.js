@@ -3,10 +3,14 @@ var success_threshold = 75;
 var money_threshold = 50;
 
 var script = '';
-hack_chance = 0;
-if (args[0] == 'hack' || !args[0]) {
-    // if argument is blank or hack then standard behavior
-    script = 'selfhack.script';
+var threads = 0;
+
+var hack_chance = 0;
+var money_percent = 0;
+var log = false;
+
+if (args[0] == 'log') {
+    log = true;
 } else if (args[0] == 'kill') {
     // if kill argument then shut down all active programs via a kill all
     var k = true;
@@ -20,21 +24,29 @@ for (i = 0; i < hosts.length; ++i) {
     money_percent = Math.round(
         (getServerMoneyAvailable(target) / getServerMaxMoney(target)) * 100
     );
-    tprint('money percent ', money_percent, '%');
     if (k) {
         continue;
     }
-
-    var stime = Math.round(
+    if (hack_chance < success_threshold) {
+        if (log) {
+            tprint(target, ': hack chance too low ', hack_chance);
+        }
+        script = 'selfweakenloop.script';
+    } else if (money_percent < money_threshold) {
+        if (log) {
+            tprint(target, ' : money remaining too low ', money_percent);
+        }
+        script = 'selfgrowloop.script';
+    } else {
+        script = 'selfhackloop.script';
+    }
+    threads = Math.floor(
         // determine the number of times the script can be run
         getServerMaxRam(target) / getScriptRam(script, target)
     );
-    if (hack_chance < success_threshold) {
-        tprint('hack chance to low ', hack_chance);
-        script = 'selfgrow.script';
-    }
-
     scp(script, 'home', target); // deploy script to server
-    tprint(script, ' run on ', target, ' threads ', stime);
-    exec(script, target, stime); // run the script
+    if (log) {
+        tprint(target, ': run ', script, ' - threads ', threads);
+    }
+    exec(script, target, threads); // run the script
 }
