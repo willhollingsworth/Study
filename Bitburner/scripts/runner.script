@@ -1,6 +1,6 @@
 var hosts = scan(getHostname()); // build an array of directly connected hosts
 var success_threshold = 75;
-var money_threshold = 50;
+var money_threshold = 75;
 
 var script = '';
 var threads = 0;
@@ -14,7 +14,10 @@ if (args[0] == 'log') {
 } else if (args[0] == 'kill') {
     // if kill argument then shut down all active programs via a kill all
     var k = true;
+} else if (args[0] == 'self') {
+    hosts.push('home');
 }
+
 while (true) {
     for (i = 0; i < hosts.length; ++i) {
         // loop over each host
