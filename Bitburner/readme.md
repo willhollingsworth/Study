@@ -1,1 +1,1 @@
-Bit burner is a programming-based incremental game that revolves around hacking and cyberpunk themes. The game can be played at https://danielyxie.github.io/bitburner.
+A collection of scrips for the game Bitburner written in JavaScript. The game can be played at https://danielyxie.github.io/bitburner.

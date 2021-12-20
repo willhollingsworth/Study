@@ -1,3 +1,4 @@
+/** @param {NS} ns **/
 export async function main(ns) {
     // https://bitburner.readthedocs.io/en/latest/netscript/netscriptjs.html
 

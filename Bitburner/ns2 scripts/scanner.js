@@ -1,3 +1,4 @@
+/** @param {NS} ns **/
 export async function main(ns) {
     var hosts = ns.scan(ns.getHostname()); // build an array of directly connected hosts
     var hack_chance = 0;

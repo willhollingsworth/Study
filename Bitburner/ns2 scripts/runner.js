@@ -1,3 +1,4 @@
+/** @param {NS} ns **/
 export async function main(ns) {
     var hosts = ns.scan(ns.getHostname()); // build an array of directly connected hosts
     var success_threshold = 75;
@@ -34,12 +35,12 @@ export async function main(ns) {
             }
             if (hack_chance < success_threshold) {
                 if (log) {
-                    ns.tprint(target, ': hack chance too low ', hack_chance);
+                    ns.print(target, ': hack chance too low ', hack_chance);
                 }
                 script = 'weaken.script';
             } else if (money_percent < money_threshold) {
                 if (log) {
-                    ns.tprint(
+                    ns.print(
                         target,
                         ' : money remaining too low ',
                         money_percent
@@ -59,7 +60,7 @@ export async function main(ns) {
             }
             if (threads > 0) {
                 if (log) {
-                    ns.tprint(target, ': run ', script, ' - threads ', threads);
+                    ns.print(target, ': run ', script, ' - threads ', threads);
                 }
                 ns.exec(script, target, threads, target); // run the script}
             }
