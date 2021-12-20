@@ -15,38 +15,43 @@ if (args[0] == 'log') {
     // if kill argument then shut down all active programs via a kill all
     var k = true;
 }
-
-for (i = 0; i < hosts.length; ++i) {
-    // loop over each host
-    target = hosts[i];
-    hack_chance = Math.round(hackAnalyzeChance(target) * 100);
-    killall(target);
-    money_percent = Math.round(
-        (getServerMoneyAvailable(target) / getServerMaxMoney(target)) * 100
-    );
-    if (k) {
-        continue;
-    }
-    if (hack_chance < success_threshold) {
-        if (log) {
-            tprint(target, ': hack chance too low ', hack_chance);
+while (true) {
+    for (i = 0; i < hosts.length; ++i) {
+        // loop over each host
+        target = hosts[i];
+        hack_chance = Math.round(hackAnalyzeChance(target) * 100);
+        money_percent = Math.round(
+            (getServerMoneyAvailable(target) / getServerMaxMoney(target)) * 100
+        );
+        if (k) {
+            continue;
         }
-        script = 'selfweakenloop.script';
-    } else if (money_percent < money_threshold) {
-        if (log) {
-            tprint(target, ' : money remaining too low ', money_percent);
+        if (hack_chance < success_threshold) {
+            if (log) {
+                tprint(target, ': hack chance too low ', hack_chance);
+            }
+            script = 'weaken.script';
+        } else if (money_percent < money_threshold) {
+            if (log) {
+                tprint(target, ' : money remaining too low ', money_percent);
+            }
+            script = 'grow.script';
+        } else {
+            script = 'hack.script';
         }
-        script = 'selfgrowloop.script';
-    } else {
-        script = 'selfhackloop.script';
+        threads = Math.floor(
+            // determine the number of times the script can be run
+            (getServerMaxRam(target) - getServerUsedRam(target)) /
+                getScriptRam(script, target)
+        );
+        if (!fileExists(script, target)) {
+            scp(script, 'home', target); // deploy script to server
+        }
+        if (threads > 0) {
+            if (log) {
+                tprint(target, ': run ', script, ' - threads ', threads);
+            }
+            exec(script, target, threads, target); // run the script}
+        }
     }
-    threads = Math.floor(
-        // determine the number of times the script can be run
-        getServerMaxRam(target) / getScriptRam(script, target)
-    );
-    scp(script, 'home', target); // deploy script to server
-    if (log) {
-        tprint(target, ': run ', script, ' - threads ', threads);
-    }
-    exec(script, target, threads); // run the script
 }
