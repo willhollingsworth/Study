@@ -1,5 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
+const fs = require('fs');
+
+let credentials = fs.readFileSync('./credentials.json', 'utf8');
+credentials = JSON.parse(credentials);
 
 const app = express();
 
@@ -8,29 +12,8 @@ app.set('views', __dirname + '\\views');
 
 app.listen(3000);
 
-app.use((req, res, next) => {
-    console.log(
-        'new request, host: ',
-        req.hostname,
-        ' path: ',
-        req.path,
-        ' method: ',
-        req.method
-    );
-    next();
-});
-
-app.use((req, res, next) => {
-    console.log(
-        'new request, host: ',
-        req.hostname,
-        ' path: ',
-        req.path,
-        ' method: ',
-        req.method
-    );
-    next();
-});
+app.use(express.static('public'));
+app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
     const blogs = [
