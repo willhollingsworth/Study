@@ -1,19 +1,49 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const fs = require('fs');
-
-let credentials = fs.readFileSync('./credentials.json', 'utf8');
-credentials = JSON.parse(credentials);
+const Blog = require('./models/blog');
 
 const app = express();
+
+let credentials = fs.readFileSync('./credentials.json', 'utf8');
+credentials = JSON.parse(credentials).uri;
+mongoose
+    .connect(credentials)
+    .then((result) => app.listen(3000))
+    .catch((err) => console.log(err));
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '\\views');
 
-app.listen(3000);
-
 app.use(express.static('public'));
 app.use(morgan('dev'));
+
+app.get('/add-blog', (req, res) => {
+    const blog = new Blog({
+        title: 'new blog',
+        snippet: 'about my new blog',
+        body: 'more about my new blog',
+    });
+    blog.save()
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+app.get('/all-blogs', (req, res) => {
+    Blog.find()
+        .then((result) => res.send(result))
+        .catch((err) => console.log(err));
+});
+app.get('/single-blogs', (req, res) => {
+    Blog.findById('61dd0bcee484449ba5169f32')
+        .then((result) => res.send(result))
+        .catch((err) => console.log(err));
+});
 
 app.get('/', (req, res) => {
     const blogs = [
