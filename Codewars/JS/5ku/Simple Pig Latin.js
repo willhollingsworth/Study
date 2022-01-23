@@ -1,4 +1,7 @@
 function pigIt(str) {
+    return str.replace(/(\w{1})(\w*)/g, '$2$1ay');
+}
+function pigItv1(str) {
     let output = [],
         punctuation = ['.', ',', '!', '#', '?'];
 
@@ -13,6 +16,7 @@ function pigIt(str) {
     return output.join(' ');
 }
 
-console.log(pigIt('Pig latin is cool'), 'igPay atinlay siay oolcay');
-console.log(pigIt('This is my string'), 'hisTay siay ymay tringsay');
-console.log(pigIt('This is my string !'), 'hisTay siay ymay tringsay');
+// console.log(pigIt('Pig latin is cool'), 'igPay atinlay siay oolcay');
+// console.log(pigIt('This is my string'), 'hisTay siay ymay tringsay');
+// console.log(pigIt('This is my string !'), 'hisTay siay ymay tringsay');
+console.log(pigIt('O temporat o mores !'));
