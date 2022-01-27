@@ -1,4 +1,4 @@
 {
     "python.formatting.provider": "black",
-    "cSpell.words": ["Bitburner"]
+    "cSpell.words": ["Bitburner", "Reduc"]
 }
