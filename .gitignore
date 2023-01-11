@@ -1,3 +1,4 @@
 Youtube/The Net Ninja/JS crash course/express ejs/node_modules/*
 Youtube/The Net Ninja/JS crash course/express ejs/package-lock.json
 Youtube/The Net Ninja/JS crash course/express ejs/credentials.json
+*.pyc
