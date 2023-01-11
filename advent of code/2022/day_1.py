@@ -11,5 +11,6 @@ for elf in elfs:
             temp += int(item)
     elf_total.append(temp)
 elf_total.sort()
-print(elf_total[-1])
-
+print('day1',elf_total[-1])
+print('day2:',elf_total[-3:])
+print('day2:',sum(elf_total[-3:]))
