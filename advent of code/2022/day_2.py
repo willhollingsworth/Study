@@ -18,9 +18,9 @@ for match in input.split('\n'):
     result = ''
     if match == '' : continue
     o,m = match.split(' ')
-    for outcome in l.keys():
-        if m == l[outcome][o]:
-            result = outcome
+    for key in l.keys():
+        if m == l[key][o]:
+            result = key
     score += result_score[result]
     score += shape_score[m]
 print(score)
