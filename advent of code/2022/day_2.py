@@ -6,21 +6,21 @@ input = day2_input.input
 # input = '''
 # C Z
 # '''
-
+l = {}
+l['win'] = {'A':'Y','B':'Z','C':'X'}
+l['loss'] = {'A':'Z','B':'X','C':'Y'}
+l['draw'] = {'A':'X','B':'Y','C':'Z'}
+result_score = {'win':6 , 'draw':3 , 'loss':0}
+shape_score = {'X':1, 'Y':2, 'Z':3}
 
 score = 0
 for match in input.split('\n'):
-    win = {'A':'Y','B':'Z','C':'X'}
-    loss = {'A':'Z','B':'X','C':'Y'}
-    draw = {'A':'X','B':'Y','C':'Z'}
-    shape = {'X':1, 'Y':2, 'Z':3}
-    if match == '':
-        continue
-    o = match.split(' ')[0]
-    m = match.split(' ')[1]
-    if m == win[o]:
-        score += 6
-    elif m == draw[o]:
-        score +=3
-    score += shape[m]
+    result = ''
+    if match == '' : continue
+    o,m = match.split(' ')
+    for outcome in l.keys():
+        if m == l[outcome][o]:
+            result = outcome
+    score += result_score[result]
+    score += shape_score[m]
 print(score)
