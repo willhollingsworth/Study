@@ -2,9 +2,9 @@ from re import search,compile,VERBOSE
 import codewars_test as test
 
 
-
-
-regex = compile('''
+regex1 = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=\w{6,})(?=^[a-zA-Z0-9]*$)'
+# cleaner looking example using re's compile
+regex2 = compile('''
 ^
 (?=.*[a-z])
 (?=.*[A-Z])
@@ -13,7 +13,18 @@ regex = compile('''
 (?=^[a-zA-Z0-9]*$)
 ''',VERBOSE)
 
+# can also use a tuple to combine multi lines into a single long string
 
+regex3 = (
+'^'
+'(?=.*[a-z])'
+'(?=.*[A-Z])'
+'(?=.*[0-9])'
+'(?=\w{6,})'
+'(?=^[a-zA-Z0-9]*$)'    
+)
+
+regex = regex3
 print(search(regex, 'fjd3IR9'))
 print(search(regex, 'aaa'))
 # test.describe("Basic tests")
