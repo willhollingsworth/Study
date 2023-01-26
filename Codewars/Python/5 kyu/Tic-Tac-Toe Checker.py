@@ -1,24 +1,38 @@
 import codewars_test as test
 
 def checker(spots):
-    if 0 in spots : 
-        return
-    elif sum(spots) == 6:
-            return 2
-    elif sum(spots) == 3:
-            return 1
+    if spots[0] == spots[1] == spots [2]:
+        return spots[0]
+
+def build_check_list(board):
+    output_list =[]
+    # 3 horizontal, 3 vertical, 2 diagonals 
+    board_checks = [
+    [0,1,2],    
+    [3,4,5],    
+    [6,7,8],    
+    [0,3,6],    
+    [1,4,7],    
+    [2,5,8],    
+    [0,4,8],    
+    [2,4,6],    
+    ]
+    board_list = board[0] + board[1] + board[2]
+    for check in board_checks:
+        output_list.append([
+            board_list[check[0]],
+            board_list[check[1]],
+            board_list[check[2]],
+        ])
+    return output_list
 
 def is_solved(board):
     result = 0
+    draw = 0
+    unfinished = -1
+
     #build check lists
-    board_checks = []
-    for x in board: #horizontal checks
-        board_checks.append(x)
-    for x in range(3): # vert checks
-        board_checks.append([board[0][x],board[1][x],board[2][x]])
-    #diag checks
-    board_checks.append([board[0][0],board[1][1],board[2][2]])
-    board_checks.append([board[0][2],board[1][1],board[2][0]])
+    board_checks = build_check_list(board)
     # test all check lists
     for check in board_checks:
         check_result = checker(check)
@@ -26,8 +40,8 @@ def is_solved(board):
             return check_result
     for x in board: # unfinished check
         if 0 in x:
-            return -1
-    return 0
+            return unfinished 
+    return draw
 
 
 # not yet finished
