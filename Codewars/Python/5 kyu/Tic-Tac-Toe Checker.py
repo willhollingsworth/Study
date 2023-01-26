@@ -10,6 +10,7 @@ def checker(spots):
 
 def is_solved(board):
     result = 0
+    #build check lists
     board_checks = []
     for x in board: #horizontal checks
         board_checks.append(x)
@@ -18,7 +19,7 @@ def is_solved(board):
     #diag checks
     board_checks.append([board[0][0],board[1][1],board[2][2]])
     board_checks.append([board[0][2],board[1][1],board[2][0]])
-    # run all checks
+    # test all check lists
     for check in board_checks:
         check_result = checker(check)
         if check_result:
