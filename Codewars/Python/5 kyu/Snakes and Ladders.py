@@ -3,11 +3,10 @@ import codewars_test as test
 
 class SnakesLadders():
     def __init__(self):
-        self.position_p1 = 0
-        self.position_p2 = 0
-        self.player_turn = 1
+        self.positions = [0,0]
+        self.player_2_turn = False
         self.game_over = False
-        self.snakes_ladders = {
+        self.snakes_ladders = { 
             2:38,7:14,8:31,15:26,16:6,21:42,28:84,36:44,46:25,49:11,
             51:67,62:19,64:60,71:91,74:53,78:98,87:94,89:68,92:88,95:75,99:80
             }
@@ -15,44 +14,34 @@ class SnakesLadders():
     def play(self, die1, die2):
         if self.game_over:
             return 'Game over!'
-        if self.player_turn == 1:
-            self.position_p1 += die1+die2
-            if die1 != die2:
-                self.player_turn = 2
-            if self.position_p1 == 100:
-                self.game_over = True
-                return 'Player 1 Wins!'
-            elif self.position_p1 > 100:
-                self.position_p1 = 100 - (self.position_p1 - 100)
-            if self.position_p1 in self.snakes_ladders:
-                self.position_p1 = self.snakes_ladders[self.position_p1]
-            return 'Player 1 is on square '+str(self.position_p1)
-        else:
-            self.position_p2 += die1+die2
-            if die1 != die2:
-                self.player_turn = 1 
-            if self.position_p2 == 100:
-                self.game_over = True
-                return 'Player 2 Wins!'
-            elif self.position_p2 > 100:
-                self.position_p2 = 100 - (self.position_p2 - 100)
-            if self.position_p2 in self.snakes_ladders:
-                self.position_p2 = self.snakes_ladders[self.position_p2]
-            return 'Player 2 is on square '+str(self.position_p2)
+        position = self.positions[self.player_2_turn]     
+        position += die1+die2
+        if position == 100:
+            self.game_over = True
+            return 'Player {} Wins!'.format(self.player_2_turn+1)
+        elif position > 100:
+            position = 100 - (position - 100)
+        if position in self.snakes_ladders:
+            position = self.snakes_ladders[position]
+        self.positions[self.player_2_turn] = position
+        return_string = 'Player {} is on square {}'.format(self.player_2_turn+1 , position)
+        if die1 != die2:
+            self.player_2_turn = not self.player_2_turn
+        return return_string
 
 gametest = SnakesLadders()
 print(gametest.play(1, 1))
 print(gametest.play(1, 5))
-print(gametest.play(6, 2))
-print(gametest.play(1, 1))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
-print(gametest.play(6, 6))
+# print(gametest.play(6, 2))
+# print(gametest.play(1, 1))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
+# print(gametest.play(6, 6))
 
 
 
