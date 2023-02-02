@@ -22,7 +22,7 @@ def is_merge(s, part1, part2):
 # print(is_merge('codewars', 'code', 'wars'))
 # print(is_merge('codewars', 'cdw', 'oears'))
 # print(is_merge('codewars', 'cod', 'wars'))
-print(is_merge("Can we merge it? Yes, we can!", "Cawe erg t? s, we can!", "n meiYe"))
+print(is_merge("Can we merge it? Yes, we can!", "Cawe erg t? s, we can!", "n meiYe"), ' : should pass, doesn\'t')
 
 # import codewars_test as test
 # @test.describe('Merged string checker')
