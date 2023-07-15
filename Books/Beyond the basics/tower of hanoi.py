@@ -1,7 +1,7 @@
 class Tower():
     def __init__(self):
         self.state = [[1,2,3,4,5,6],[0,0,0,0,0,0],[0,0,0,0,0,0]]
-        self.history =[[self.find_highest_block(c)[0] for c in range(3)]]
+        self.history =[[self.find_highest_block(c) for c in range(3)]]
 
     def show_state(self):
         for line in range(6):
@@ -43,7 +43,7 @@ class Tower():
     
     def preview_move(self,source,destination):
         self.move_block(source,destination)
-        preview_highest_blocks = [self.find_highest_block(c)[0] for c in range(3)]
+        preview_highest_blocks = [self.find_highest_block(c) for c in range(3)]
         self.move_block(destination,source)
         return preview_highest_blocks
 
@@ -65,14 +65,14 @@ class Tower():
         moves =  self.find_all_valid_moves()
         if moves:
             self.move_block(*moves[0])
-            self.history.append([self.find_highest_block(c)[0] for c in range(3)])
+            self.history.append([self.find_highest_block(c) for c in range(3)])
         else:
             print('no valid moves',end =', ')
 
 tower = Tower()
 tower.show_state()
 
-for x in range(20):
+for x in range(100 ):
     tower.do_first_valid_move()
     # print(tower.find_highest_block(1))
     # tower.try_move(0,1)
