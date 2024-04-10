@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+        }
+        
+        body{
+            width: 400px;
+            height:300px;
+            padding-top: 25px;
+            background-color: #998235;
+            display: grid;
+            place-items: center;
+        }
+        body > div {
+            display: grid;
+            place-items: center;
+            grid-template-columns: repeat(2, 1fr);
+            transform: rotate(45deg);
+        }
+        body > div > div{
+            width: 70px;
+            aspect-ratio: 1;
+            background:#0B2429
+        }
+        body > div > div:nth-of-type(2){
+            background:#FCBE5C
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
