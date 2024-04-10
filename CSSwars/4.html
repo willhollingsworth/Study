@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  body{
+    width: 400px;
+    height: 300px;
+    background: #62306D;
+    display: grid;
+    place-items: center;    
+}
+body div {
+    display: grid;
+    place-items: center;    
+    grid-template-columns: repeat(3, 100px);
+  }
+div div {
+    width:100px ;
+    height: 100px;
+}
+div div:nth-of-type(2){
+    background: #F7EC7D;
+    border-radius: 50% 50% 0 0;
+}
+div div:nth-of-type(4),
+div div:nth-of-type(6){
+    background: #F7EC7D;
+    border-radius: 0 0 50% 50%;
+  }
+    </style>
+</head>
+<body>
+    <div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>

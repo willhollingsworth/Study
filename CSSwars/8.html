@@ -1,0 +1,86 @@
+<head>
+    <style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    width: 400px;
+    height: 300px;
+    background: #6592CF;
+}
+body{
+    display: grid;
+    place-items: center;
+}
+div {
+    background: #060F55;
+}
+
+#prongs{
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: -70px;
+}
+
+#prongs > *{
+    position: relative;
+    width: 20px;
+    height:90px;
+}
+#prongs > *::after{
+    position: absolute;
+    content: "";
+    width: 20px;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    background: red;
+}
+#prongs > *:nth-child(odd)::after{
+    top: -10px;
+    background:#060F55;
+}
+#prongs > *:nth-child(even){
+    z-index: 1;
+    background: #6592CF;
+}
+#prongs > *:nth-child(2n)::after{
+    background: #6592CF;
+    bottom: -10px;
+}
+#body {
+    height: 100px;
+    width: 140px;
+    position: relative;
+}
+#body::after {
+    position: absolute;
+    bottom: -70px;
+    content: "";
+    width: 140px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:#060F55;    
+}
+#stem {
+    margin-top: -20px;
+    border-radius: 0%;
+    width: 20px;
+    height: 200px;
+}
+    </style>
+</head>
+<body>
+    <div id="prongs">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="body"></div>
+    <div id="stem"></div>
+</body>

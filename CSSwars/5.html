@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  body{
+    width: 400px;
+    height: 300px;
+    background: #0B2429;
+    border: dashed 3px red;    
+}
+body, body div{
+    display: grid;
+    place-items: center;    
+}
+body > div {
+    grid: repeat(3, 60px) / repeat(3, 60px);
+    /* grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px); */
+  }
+div div:nth-of-type(3),
+div div:nth-of-type(5),
+div div:nth-of-type(7){
+    width:120px ;
+    height: 120px;
+    background: #F3AC3C;
+    border-radius: 50% 0 50% 50%;
+}
+div div:nth-of-type(5){
+    background: #998235;
+}
+div div:nth-of-type(3){
+    border-radius: 50%;
+  }
+    </style>
+</head>
+<body>
+    <div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>
