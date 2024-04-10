@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- https://cssbattle.dev/play/159 -->
+    <style>
+        *{
+          margin: 0;
+        }
+        body{
+            background-color: #F5D6B4;
+            display: grid;
+            place-content: center;
+            align-items: center;
+            height: 300px;
+            width: 400px;
+            grid-template-columns: repeat(5, 50px);
+        }
+        div {
+          width: 50px;
+          height: 250px;
+          background: #D86F45;
+        }
+        div:nth-of-type(1),
+        div:nth-of-type(5)
+        {
+            height: 50px;
+        }
+        div:nth-of-type(2),
+        div:nth-of-type(4)
+        {
+            height: 150px;
+        }
+      </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+</html>
