@@ -1,0 +1,58 @@
+<head>
+    <style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    background: #6592CF;
+    }
+    body div{
+        display: grid;
+        place-items: center;    
+    }
+    .p{
+        display: flex;
+      margin-top: 50px;
+    }
+    .p > div, .h, .s{
+        background: #060F55;
+        border-radius: 200px;
+    }
+    .p > div {
+        height: 110px;
+        width:20px;
+    }
+    .p > div:nth-child(even) {
+        background: #6592CF;
+    }
+    .s {
+        margin-top: -80px; 
+        height: 170px;
+        width: 140px;
+        z-index: -1;
+    }
+
+    .h{
+        margin-top: -20px;
+        height: 200px;
+        width: 20px;
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="p">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="s"></div>
+        <div class="h"></div>
+    </div>
+</body>

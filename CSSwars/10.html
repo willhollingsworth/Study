@@ -1,0 +1,37 @@
+<head>
+    <style>
+body{
+    background: #62306D;
+    display: flex;
+    justify-content: center;
+}
+div {
+    background: #F7EC7D;
+    height: 300px;
+    width: 100px;
+    border-radius: 100px;
+    margin-top: 42px;
+}
+div::before{
+    content: "";
+    display: block;
+    height: 100px;
+    aspect-ratio: 1;
+    background: #AA445F;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 20px #E38F66 inset;
+}
+div:nth-of-type(odd){
+    margin-top: 142px;
+}
+div:nth-of-type(odd)::before{
+    background: #E38F66;
+    box-shadow: 0px 0px 0px 20px #AA445F inset;
+}
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+</body>

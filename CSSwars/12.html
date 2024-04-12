@@ -1,0 +1,49 @@
+<head>
+    <style>
+  body{
+    background: #F5D6B4;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+div, div::after{
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+div {
+    height: 60px;
+    border: solid 20px #D86F45;
+    margin: -10px;
+    border-color: #D86F45 #D86F45 transparent transparent ;
+}
+#b {
+    transform: rotate(-45deg);
+}
+#a,#c{
+    transform: rotate(135deg);
+}
+div::after{
+    position: relative;
+    display: block;
+    content: "";
+    height: 20px;
+}
+#c::after{
+    background: #D86F45;
+    right: 8px;
+    bottom: 8px;
+}
+#a::after{
+    background: #D86F45;
+    left: 48px;
+    top: 48px;
+}
+</style>
+</head>
+<body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c"></div>
+</body>
