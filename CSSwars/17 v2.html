@@ -1,0 +1,40 @@
+<head>
+    <style>
+        /* using grids only */
+.grid{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+  body{
+    background: #09042A;
+}
+div {
+    width:60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 10px #09042A ;
+}
+.cen-col {
+    grid-column-start: 2;
+    background: #F5BB9C;
+}
+.cen-row {
+    grid-row-start: 2;
+    background: #09042A;
+    box-shadow: 0px 0px 0px 10px #E78481 ;
+    margin: -7px auto
+}
+.center{
+    background: #E78481;
+    z-index: -1;
+}    
+    </style>
+</head>
+<body class="grid">
+    <div class="cen-row"></div>
+    <div class="cen-row cen-col center"></div>
+    <div class="cen-row"></div>
+    <div class="cen-col"></div>
+    <div class="cen-col"></div>
+</body>
