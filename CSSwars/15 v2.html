@@ -1,0 +1,38 @@
+<head>
+    <style>
+        /* using overflow:hidden abroach */
+  body{
+    background: #09042A;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div {
+    background: #7B3F61;
+    height: 150px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin: 0 -25px 0 -25px;
+    /* margin:-25px; */
+}
+#b{
+    position: relative;
+    background: #E78481;
+    overflow: hidden;
+      }
+#c{
+    position: absolute;
+    background: #09042A;
+    right:125px;
+}
+    </style>
+</head>
+<body>
+    <div></div>
+    <div id='b'>
+        <div id='c'></div>
+    </div>
+</body>
