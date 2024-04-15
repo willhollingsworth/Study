@@ -1,0 +1,51 @@
+<head>
+    <style>
+.center{
+    display: grid;
+    place-items: center;
+      gap: 26px
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  body{
+    background: #09042A;
+}
+
+.outside, .inside {
+    height: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+.outside {
+    background: #09042A;
+    border: solid 10px #E78481;
+    margin: -20px
+}
+.inside{
+    background: #F5BB9C;
+    border: solid 10px #09042A;
+    z-index: 1;
+}
+.middle{
+  position: absolute;
+  border-radius: 0px;
+  width:150px;
+  height: 150px;
+  background: #E78481;
+  clip-path: circle(40px);
+  z-index: -1;
+}
+    </style>
+</head>
+<body class="flex">
+    <div class="outside"></div>
+    <div class="center">
+        <div class="inside"></div>
+        <div class="inside middle"></div>
+        <div class="inside"></div>
+    </div>
+    <div class="outside"></div>
+</body>
