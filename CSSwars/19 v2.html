@@ -1,0 +1,41 @@
+<head>
+    <style>
+.center{
+    display: grid;
+    place-items: center;    
+}
+  body{
+    background: #0B2429;
+}
+div {
+    background: #F3AC3C;
+    height: 100px;
+    width: 100px;
+    transform: rotate(45deg);
+    margin-top:70px
+}
+div::before, div::after{
+  content: '';
+  display: block;
+  width: 100px;
+  aspect-ratio: 1;
+  transform-origin: bottom right;
+}
+div::before{
+    background: #998235;
+    position: relative;
+    right: 100px;
+    transform-origin: bottom right;
+    transform:scaleX(.5) skewY(26.5deg)
+   }
+div::after{
+    background: #1A4341;
+    position: relative;
+    bottom: 200px;
+    transform: scaleY(.5) skewX(26.5deg) ;
+ }
+    </style>
+</head>
+<body class="center">
+    <div></div>
+</body>

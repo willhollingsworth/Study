@@ -1,0 +1,52 @@
+<head>
+  <style>
+.center{
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(2, auto);
+}
+body{
+  background: #62306D;
+}
+
+div { 
+  position: relative;
+  background: blue;
+  height: 100px;
+}
+.l{
+  width: 140px;
+  background: #F7EC7D;
+}
+.r{
+  width: 60px;
+  background: #E38F66;
+  transform: rotate(180deg);
+}
+div::before, .r::after{
+  position: absolute;
+  content: '';
+  display: block;
+  width: 40px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.r::after{
+  background: #62306D;
+  width: 20px;
+  top: -10px;
+  right: -10px;
+  box-shadow:  #62306D 0 100px ;
+}
+div::before{
+  background: #62306D;
+  top: -20px ;
+  left: -20px ;
+  box-shadow: #62306D 0px 100px ;
+    }
+  </style>
+</head>
+<body class="center">
+  <div class='l'></div>
+  <div class='r'></div>
+</body>
