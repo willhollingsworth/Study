@@ -1,4 +1,10 @@
-def arithmetic_arranger(problems, show_answers=False):
+import time
+
+from testing_data import tests
+
+
+
+def arithmetic_arranger(problems: str, show_answers=False):
     if len(problems) > 5:
         return 'Error: Too many problems.'
     line1 = ''
@@ -38,7 +44,6 @@ def arithmetic_arranger(problems, show_answers=False):
                 total = num_1 - num_2
             line4 += f'{total:>6}  '
 
-            
     output += line1 + '\n'
     output += line2 + '\n' 
     output += line3 + '\n' 
@@ -46,23 +51,15 @@ def arithmetic_arranger(problems, show_answers=False):
         output += line4 + '\n' 
     return output
 
+if __name__ == "__main__":
+    for test in tests[:2]:
+        inputs = test[0]
+        # print(test[0])
+        if isinstance(inputs[0], str): 
+            results = arithmetic_arranger(inputs)
+        else:
+            results = arithmetic_arranger(*inputs)
+        print(results)
+        print(test[1])
 
-tests =[
-        ["32 + 698","3801 - 2","45 + 43","123 + 49",],
-        ["3801 - 2", "123 + 49"], 
-        ["1 + 2", "1 - 9380"], 
-        ["3 + 855", "3801 - 2", "45 + 43", "123 + 49"], 
-        ["44 + 815", "909 - 2", "45 + 43", "123 + 49", "888 + 40", "653 + 87"], 
-        ["24 + 85215", "3801 - 2", "45 + 43", "123 + 49"],
-        ["98 + 3g5", "3801 - 2", "45 + 43", "123 + 49"],
-        (["3 + 855", "988 + 40"], True),
-        (["32 - 698", "1 - 3801", "45 + 43", "123 + 49", "988 + 40"],True)
-]       
-
-for test in tests:
-    if isinstance(test, tuple): 
-        results = arithmetic_arranger(*test)
-    else:
-        results = arithmetic_arranger(test)
-    print(results)
 
