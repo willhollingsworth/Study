@@ -11,13 +11,13 @@
     {
       "label": "WD autorun",
       "type": "shell",
-      "command": "watchmedo shell-command  --patterns='**/*.py' --command='python -u \"${watch_src_path}\"' --recursive",
+      "command": "watchmedo shell-command  --patterns='**/*.py' --command='python -u \"${watch_src_path}\"' --recursive --drop",
       "isBackground": true
     },
     {
       "label": "WD autotest",
       "type": "shell",
-      "command": "watchmedo shell-command  --patterns='**/*.py' --command='pytest' --recursive",
+      "command": "watchmedo shell-command  --patterns='**/*.py' --command='pytest' --recursive --drop",
       "isBackground": true
     }
 
