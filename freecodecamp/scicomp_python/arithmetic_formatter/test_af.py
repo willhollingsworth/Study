@@ -1,14 +1,14 @@
 import pytest
 
 from af import arithmetic_arranger
-from testing_data import tests
+import testing_data
 
-# tests = [tests[0:2]]
-
-@pytest.mark.parametrize("input, expected",tests)
+@pytest.mark.parametrize("input, expected",testing_data.tests)
 def test_string_match(input, expected):
         results = arithmetic_arranger(*input)
         assert results == expected, f'Expected :{ascii(expected)} but got :{ascii(results)}'
 
 if __name__ == "__main__":
-    pytest.main([__file__])
+    for input, expected in testing_data.tests:
+        results = arithmetic_arranger(*input)
+        print(f'{ascii(results)}\n{ascii(expected)}')
