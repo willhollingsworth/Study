@@ -1,7 +1,11 @@
 import testing_data_tc
+
+
 def add_time(start: str, duration: str, day: str = '') -> str:
     output_list = []
     symbols = ['AM', 'PM']
+    day_labels = ['Monday', 'Tuesday', 'Wednesday',
+                   'Thursday', 'Friday', 'Saturday', 'Sunday']
 
     start_hour, start_minute = map(int, start.split(' ')[0].split(':'))
     duration_hour, duration_minute = map(int, duration.split(':'))
@@ -21,10 +25,17 @@ def add_time(start: str, duration: str, day: str = '') -> str:
     output_list.append(f'{formatted_hour}:{end_minute:02d} {symbols[symbol]}')
 
     days = end_hour // 24
+
+    if day:
+        current_day = day_labels.index(day.title())
+        current_day = (current_day + days) % 7
+        output_list.append(f', {day_labels[current_day]}')
+
     if days == 1:
         output_list.append(' (next day)')
     elif days > 1:
         output_list.append(f' ({days} days later)')
+
     return ''.join(output_list)
 
 
