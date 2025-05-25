@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-import testing_data
+import testing_data_tc
 
 def add_time(start: str, duration: str):
     start_time = datetime.strptime(start, '%I:%M %p')
