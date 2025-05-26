@@ -71,7 +71,7 @@ class Square(Rectangle):
 
     def __str__(self) -> str:
         """Return a string representation of the square."""
-        return f"square(side={self.width})"
+        return f"Square(side={self.width})"
 
     def set_side(self, side: float) -> None:
         """Set all sides of a square."""
@@ -79,12 +79,12 @@ class Square(Rectangle):
         self.height = side
 
     def set_width(self, width: float) -> None:
-        """Set the width of the square."""
+        """Set all sides of a square."""
         self.width = width
         self.height = width
 
     def set_height(self, height: float) -> None:
-        """Set the height of the square."""
+        """Set all sides of a square."""
         self.height = height
         self.width = height
 
@@ -93,7 +93,8 @@ if __name__ == "__main__":
     print("running polygon calculator")
     rect = Rectangle(10, 5)
     rect.set_height(4)
-    print(rect.get_picture())
+    print(rect)
+    # print(rect.get_picture())
 
     reat2 = Rectangle(3, 2)
     # print(rect.get_amount_inside(reat2))

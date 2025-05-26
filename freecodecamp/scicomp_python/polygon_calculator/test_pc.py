@@ -58,3 +58,20 @@ def test_get_amount_inside() -> None:
     expected = 6
     results = rect.get_amount_inside(small_rect)
     assert results == expected, f'Expected :{expected!a} but got :{results!a}'
+
+
+def test_square_string_representation() -> None:
+    """Test the string representation of a square."""
+    square = Square(5)
+    expected = "Square(side=5)"
+    results = str(square)
+    assert results == expected, f'Expected :{expected!a} but got :{results!a}'
+
+
+def test_square_string_representation_2() -> None:
+    """Test the string representation of a square even after changes."""
+    square = Square(5)
+    square.set_side(2)
+    expected = "Square(side=2)"
+    results = str(square)
+    assert results == expected, f'Expected :{expected!a} but got :{results!a}'
