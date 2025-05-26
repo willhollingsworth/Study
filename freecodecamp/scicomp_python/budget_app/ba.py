@@ -1,5 +1,4 @@
-
-
+from math import floor
 class Category:
     """A class to represent a budget category."""
 
@@ -49,14 +48,79 @@ class Category:
         return True
 
 
+def create_spend_chart(categories: list[Category]) -> str:
+    """Create a spend chart for the given categories."""
+    names = [category.name for category in categories]
+    totals = [category.get_balance() for category in categories]
+    total = sum(totals)
+    percentage = [floor(item / total * 10) for item in totals]
+    output_string = 'Percentage spent by category\n'
+    output_string += build_chart_top(percentage)
+    output_string += build_chart_bottom(names)
+    return output_string
+
+
+def build_chart_top(percentages: list[int]) -> str:
+    """Build the percentages and dashes of the chart."""
+    lines = [f'{line:>3}| ' for line in range(100, -1, -10)]
+    for percentage in percentages:
+        for line in range(11):
+            content = 'o  ' if 10 - line < percentage + 1 else '   '
+            lines[line] += content
+    lines.append('    -' + '---' * len(percentages))
+    return '\n'.join(lines) + '\n'
+
+
+def build_chart_bottom(names: list[str]) -> str:
+    """Build the labels of the chart."""
+    length = max(len(name) for name in names)
+    lines: list = ['     ' for _ in range(length)]
+    for line in range(length):
+        for name in names:
+            lines[line] += f'{name[line]}  ' if line < len(name) else '   '
+    return '\n'.join(lines)
+
+
+chart_test = """Percentage spent by category
+100|          
+ 90|          
+ 80|          
+ 70|          
+ 60| o        
+ 50| o        
+ 40| o        
+ 30| o        
+ 20| o  o     
+ 10| o  o  o  
+  0| o  o  o  
+    ----------
+     F  C  A  
+     o  l  u  
+     o  o  t  
+     d  t  o  
+        h     
+        i     
+        n     
+        g     
+""".split('\n')
+
+
 if __name__ == "__main__":
     print('Running tests...')
     food = Category('Food')
-    food.deposit(1000, 'deposit')
+    food.deposit(720, 'deposit')
     food.withdraw(10.15, 'groceries')
     food.withdraw(15.89, 'restaurant and more food for dessert')
 
     clothing = Category('Clothing')
-    food.transfer(50, clothing)
-    print(food)
-    print(clothing)
+    food.transfer(180, clothing)
+
+    auto = Category('Auto')
+    auto.deposit(80, 'deposit')
+
+    test = create_spend_chart([food, clothing, auto]).split('\n')
+    for i, line in enumerate(test):
+        expected = chart_test[i]
+        if line != expected:
+            print(f'{line!a}')
+            print(f'{expected!a}')
