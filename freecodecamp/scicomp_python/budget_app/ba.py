@@ -7,6 +7,7 @@ class Category:
         self.name = name
         self.ledger: list[dict] = []
         self.total: float = 0.0
+        self.spent: float = 0.0
 
     def __str__(self) -> str:
         """Return a string representation of the budget category."""
@@ -21,6 +22,10 @@ class Category:
     def get_balance(self) -> float:
         """Check the current balance of the budget."""
         return self.total
+
+    def get_spent(self) -> float:
+        """Check the total amount spent in the budget."""
+        return self.spent
 
     def check_funds(self, amount: float) -> bool:
         """Check if there are sufficient funds for a withdrawal."""
@@ -37,6 +42,7 @@ class Category:
             return False
         self.ledger.append({'amount': -amount, 'description': description})
         self.total -= amount
+        self.spent += amount
         return True
 
     def transfer(self, amount: float, destination: 'Category') -> bool:
@@ -51,11 +57,11 @@ class Category:
 def create_spend_chart(categories: list[Category]) -> str:
     """Create a spend chart for the given categories."""
     names = [category.name for category in categories]
-    totals = [category.get_balance() for category in categories]
+    totals = [category.get_spent() for category in categories]
     total = sum(totals)
-    percentage = [floor(item / total * 10) for item in totals]
+    percentages = [floor(item / total * 10) for item in totals]
     output_string = 'Percentage spent by category\n'
-    output_string += build_chart_top(percentage)
+    output_string += build_chart_top(percentages)
     output_string += build_chart_bottom(names)
     return output_string
 
@@ -81,46 +87,52 @@ def build_chart_bottom(names: list[str]) -> str:
     return '\n'.join(lines)
 
 
-chart_test = """Percentage spent by category
-100|          
- 90|          
- 80|          
- 70|          
- 60| o        
- 50| o        
- 40| o        
- 30| o        
- 20| o  o     
- 10| o  o  o  
-  0| o  o  o  
-    ----------
-     F  C  A  
-     o  l  u  
-     o  o  t  
-     d  t  o  
-        h     
-        i     
-        n     
-        g     
-""".split('\n')
-
+chart_test_1 = [
+    "Percentage spent by category",
+    "100|          ",
+    " 90|          ",
+    " 80|          ",
+    " 70|          ",
+    " 60| o        ",
+    " 50| o        ",
+    " 40| o        ",
+    " 30| o        ",
+    " 20| o  o     ",
+    " 10| o  o  o  ",
+    "  0| o  o  o  ",
+    "    ----------",
+    "     F  C  A  ",
+    "     o  l  u  ",
+    "     o  o  t  ",
+    "     d  t  o  ",
+    "        h     ",
+    "        i     ",
+    "        n     ",
+    "        g     ",
+]
 
 if __name__ == "__main__":
-    print('Running tests...')
+    print('Running test 1')
+
     food = Category('Food')
-    food.deposit(720, 'deposit')
+    food.deposit(2000, 'deposit')
     food.withdraw(10.15, 'groceries')
-    food.withdraw(15.89, 'restaurant and more food for dessert')
+    food.withdraw(100, 'restaurant and more food for dessert')
 
     clothing = Category('Clothing')
-    food.transfer(180, clothing)
+    food.transfer(500, clothing)
+    clothing.withdraw(10.15, 'shirt')
+    clothing.withdraw(200, 'pants')
 
     auto = Category('Auto')
-    auto.deposit(80, 'deposit')
+    auto.deposit(1000, 'deposit')
+    auto.withdraw(150, 'wheels')
+    chart_1 = create_spend_chart([food, clothing, auto]).split('\n')
 
-    test = create_spend_chart([food, clothing, auto]).split('\n')
-    for i, line in enumerate(test):
-        expected = chart_test[i]
+    # print('\n'.join(chart_1))
+
+    for i, line in enumerate(chart_1):
+        expected = chart_test_1[i]
         if line != expected:
             print(f'{line!a}')
             print(f'{expected!a}')
