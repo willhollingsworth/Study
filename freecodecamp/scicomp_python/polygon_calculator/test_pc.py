@@ -19,6 +19,14 @@ def test_get_perimeter() -> None:
     assert results == expected, f'Expected :{expected!a} but got :{results!a}'
 
 
+def test_get_diagonal() -> None:
+    """Test the diagonal of a rectangle."""
+    rect = Rectangle(4, 4)
+    expected = 5.656854249492381
+    results = rect.get_diagonal()
+    assert results == expected, f'Expected :{expected!a} but got :{results!a}'
+
+
 def test_string() -> None:
     """Test the string representation of a rectangle."""
     rect = Rectangle(10, 3)
@@ -32,4 +40,21 @@ def test_get_picture() -> None:
     rect = Rectangle(10, 3)
     expected = "**********\n" * 3
     results = rect.get_picture()
+    assert results == expected, f'Expected :{expected!a} but got :{results!a}'
+
+
+def test_get_picture_too_big() -> None:
+    """Test the get_picture method of Rectangle with a too big rectangle."""
+    rect = Rectangle(60, 3)
+    expected = "Too big for picture."
+    results = rect.get_picture()
+    assert results == expected, f'Expected :{expected!a} but got :{results!a}'
+
+
+def test_get_amount_inside() -> None:
+    """Test the get_amount_inside method of Rectangle."""
+    rect = Rectangle(10, 2)
+    small_rect = Rectangle(3, 1)
+    expected = 6
+    results = rect.get_amount_inside(small_rect)
     assert results == expected, f'Expected :{expected!a} but got :{results!a}'
