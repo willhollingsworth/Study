@@ -2,6 +2,7 @@
 
 made for FreeCodeCamp's Scientific Computing with Python course.
 """
+import copy
 import random
 
 
@@ -25,12 +26,37 @@ class Hat:
             returned_balls.append(chosen_ball)
         return returned_balls
 
-# def experiment(hat: 'Hat', expected_balls, num_balls_drawn, num_experiments):
-#     pass
+
+def experiment(
+        hat: 'Hat',
+        expected_balls: dict[str, int],
+        num_balls_drawn: int,
+        num_experiments: int,
+        ) -> float:
+    """Determine ball probabilities.
+
+    Draw a given number of times to work out the chance
+    of getting the expected ball combination.
+    """
+    successful_experiments: int = 0
+    for _ in range(num_experiments):
+        hat_copy: Hat = copy.deepcopy(hat)
+        drawn_balls: list[str] = hat_copy.draw(num_balls_drawn)
+        failed_experiment: bool = False
+        for color, count in expected_balls.items():
+            if drawn_balls.count(color) < count:
+                failed_experiment = True
+        if not failed_experiment:
+            successful_experiments += 1
+    return successful_experiments / num_experiments
 
 
 if __name__ == "__main__":
-    hat1 = Hat(yellow=3, blue=2, green=6)
-    print(hat1.draw(12))
-    # hat2 = Hat(red=5, orange=4)
-    # hat3 = Hat(red=5, orange=4, black=1, blue=0, pink=2, striped=9)
+    hat = Hat(black=6, red=4, green=3)
+    probability: float = experiment(
+        hat=hat,
+        expected_balls={'red': 2, 'green': 1},
+        num_balls_drawn=5,
+        num_experiments=20,
+    )
+    print(f"Probability: {probability}")
