@@ -11,8 +11,17 @@
     {
       "label": "WD autorun",
       "type": "shell",
-      "command": "watchmedo shell-command  --patterns='**/*.py' --command='py -u \"${watch_src_path}\"' --recursive --drop",
-      "isBackground": true
+      "command": "watchmedo",
+      "args": [
+        "shell-command",
+        "--patterns=**/*.py",
+        "--command=py -u \\\"\\\"\\\"${watch_src_path}\\\"\\\"\\\"",
+        "--recursive",
+        "--verbose",
+        "--drop"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
     },
     {
       "label": "WD autotest",
