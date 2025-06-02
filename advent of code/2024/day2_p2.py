@@ -29,7 +29,7 @@ def check_reactors(reactors: list[list[int]]) -> int:
         if check_reactor(reactor):
             safe_reactors.append(True)
             continue
-        fixed_reactor = fix_reactor(reactor)
+        fixed_reactor = fix_reactor_brute(reactor)
         if check_reactor(fixed_reactor):
             safe_reactors.append(True)
         else:
@@ -100,15 +100,39 @@ def is_sorted(reactor: list[int]) -> bool:
     return reactor in (sorted(reactor), sorted(reactor, reverse=True))
 
 
+def fix_reactor_brute(reactor: list[int]) -> list[int]:
+    """Attempt to fix a reactor by removing the first failing number.
+
+    This is a brute force method that checks all possible removals.
+    """
+    for i in range(len(reactor)):
+        attempt: list[int] = remove_element(reactor, i)
+        if check_reactor(attempt):
+            return attempt
+    return reactor  # If no fix found, return original reactor
+
+
 def fix_reactor(reactor: list[int]) -> list[int]:
-    """Attempt to fix a reactor by removing the first failing number."""
+    """Attempt to fix a reactor by removing the first failing number.
+
+    If the first attempt fails try the element before to factor in failing pairs.
+    """
     failing_index: int = 0
     if not is_sorted(reactor):
         failing_index = find_unordered_index(reactor)
     else:
         failing_index = find_range_failing_index(reactor)
-    reactor.pop(failing_index)
-    return reactor
+    attempt_1: list[int] = remove_element(reactor, failing_index)
+    if check_reactor(attempt_1):
+        return attempt_1
+    failing_index -= 1
+    attempt_2: list[int] = remove_element(reactor, failing_index)
+    return attempt_2
+
+
+def remove_element(input_list: list[int], index: int) -> list[int]:
+    """Remove an element from a list at a given index."""
+    return input_list[:index] + input_list[index + 1:]
 
 
 def parse_input(input_string: str) -> list[list[int]]:
