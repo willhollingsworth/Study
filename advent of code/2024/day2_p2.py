@@ -50,13 +50,25 @@ def check_reactor(reactor: list[int]) -> bool:
 def find_unordered_index(reactor: list[int]) -> int:
     """Check a list for the first unordered element."""
     pairs: Iterator[tuple[int, int]] = zip(reactor, reactor[1:])
-    differences: list[int] = [
+    value_deltas: list[int] = [
         pair[1] - pair[0] for pair in pairs
     ]
-    ascending_list: list[bool] = [n > 0 for n in differences]
-    ascending: bool = ascending_list.count(True) > ascending_list.count(False)
-    unorder_index: int = ascending_list.index(not ascending)
+    value_direction: list[str] = [asc_label(n) for n in value_deltas]
+    possible_directions: list[str] = ['a', 'd']
+    overall_inverse_direction: str = possible_directions[
+        value_direction.count('a') > value_direction.count('d')
+    ]
+    unorder_index: int = value_direction.index(overall_inverse_direction)
     return unorder_index
+
+
+def asc_label(n: int) -> str:
+    """Labels a number as ascending, descending, or neutral."""
+    if n > 0:
+        return 'a'
+    if n < 0:
+        return 'd'
+    return 'neutral'
 
 
 def find_range_failing_index(reactor: list[int]) -> int:
