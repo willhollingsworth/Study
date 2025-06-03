@@ -1,4 +1,4 @@
-"""Advent of Code 2024 - Day 2."""  # noqa: INP001
+"""Advent of Code 2024 - Day 3."""  # noqa: INP001
 import re
 
 from day3_data import test_data
