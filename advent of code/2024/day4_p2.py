@@ -26,8 +26,8 @@ def x_finder(input_grid: NDArray[np.str_]) -> int:
         if input_grid[r, c] != 'A':
             continue
         pairs: list[set[np.str_]] = [
-            set([input_grid[r - 1, c + 1], input_grid[r + 1, c - 1]]),
-            set([input_grid[r - 1, c - 1], input_grid[r + 1, c + 1]]),
+            {input_grid[r - 1, c + 1], input_grid[r + 1, c - 1]},
+            {input_grid[r - 1, c - 1], input_grid[r + 1, c + 1]},
         ]
         matches: list[bool] = [
             pair == target for pair in pairs
