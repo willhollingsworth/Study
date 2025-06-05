@@ -7,7 +7,7 @@ from day4_data import test_data
 
 def parse_input(input_string: str) -> NDArray[np.str_]:
     """Parse the input string into a grid."""
-    lines = input_string.strip().split('\n')
+    lines: list[str] = input_string.strip().split('\n')
     length: int = len(lines[0])
     parsed_input: str = ''.join(lines)
     grid: NDArray[np.str_] = np.array(
@@ -19,7 +19,7 @@ def parse_input(input_string: str) -> NDArray[np.str_]:
 def x_finder(input_grid: NDArray[np.str_]) -> int:
     """Find the number of crossed XMAS in the grid."""
     count: int = 0
-    target = {np.str_(c) for c in 'MS'}
+    target: set[np.str_] = {np.str_(c) for c in 'MS'}
     for r, c in np.ndindex(input_grid[:-1, :-1].shape):
         if not (c and r):
             continue
