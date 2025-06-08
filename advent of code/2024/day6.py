@@ -8,7 +8,7 @@ def main(input_string: str) -> int:
     """Implement Main day6 logic."""
     grid = parse_input(input_string)
     grid = walk_grid(grid)
-    print(grid)
+    # print_grid(grid)  # Debugging output
     return np.count_nonzero(grid == 'x')
 
 
@@ -23,20 +23,25 @@ def walk_grid(grid: NDArray[np.str_]) -> NDArray[np.str_]:
     coords = np.array(np.where(grid == '^')).flatten()
     direction: NDArray[np.int_] = np.array([-1, 0])  # row, col direction
     new_coords = coords.copy()
-    for _ in range(200):
+    while True:
         grid[tuple(coords)] = 'x'
-        print(coords)
         new_coords = coords + direction
         if not is_valid_coordinate(new_coords, grid):
             break
         if grid[tuple(new_coords)] == '#':
-            print('hit a wall')
             direction = change_direction(direction)
             new_coords = coords + direction
             if not is_valid_coordinate(new_coords, grid):
                 break
         coords = new_coords
     return grid
+
+
+def print_grid(grid: NDArray[np.str_]) -> None:
+    """Print the grid for debugging."""
+    for row in grid:
+        print(''.join(row))
+    print()
 
 
 def change_direction(direction: NDArray[np.int_]) -> NDArray[np.int_]:
@@ -53,9 +58,22 @@ def is_valid_coordinate(coords: NDArray[np.int_], grid: NDArray[np.str_]) -> boo
     return 0 <= coords[0] < rows and 0 <= coords[1] < cols
 
 
+test_data1: str = """
+....#.....
+.........#
+..........
+..#.......
+.......#..
+..........
+.#..^.....
+........#.
+#.........
+......#...
+"""
+
 if __name__ == "__main__":
     print('running tests')
-    results1 = main(day6_data.test_data1)
+    results1 = main(test_data1)
     print(results1)
-    # results2 = main(day5_data.test_data2)
-    # print(results2)
+    results2 = main(day6_data.test_data2)
+    print(results2)
