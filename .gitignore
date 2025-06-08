@@ -3,3 +3,4 @@ Youtube/The Net Ninja/JS crash course/express ejs/package-lock.json
 Youtube/The Net Ninja/JS crash course/express ejs/credentials.json
 *.pyc
 __pycache__/
+*_data.py
