@@ -12,18 +12,25 @@ class WalkGridResult:
     loop_detected: bool
 
 
-def main(input_string: str) -> int:
+def main(input_string: str, status: bool = False) -> int:
     """Implement Main day6 logic."""
     grid = parse_input(input_string)
     walked_grid = walk_grid(grid)
     walked_coords = get_walked_coordinates(walked_grid.grid)
+    walked_count: int = len(walked_coords)
     loop_count: int = 0
-    for r, c in walked_coords:
+    print('checking for loops')
+    for i, (r, c) in enumerate(walked_coords):
+        if i % (walked_count // 20) == 0 and status:
+            percentage_completed = (i) / walked_count * 100
+            print(
+                f'{round(percentage_completed)}% completed,',
+                f'Loops found: {loop_count}',
+            )
         temp_grid = grid.copy()
         temp_grid[r, c] = '#'
         walked_grid = walk_grid(temp_grid)
         if walked_grid.loop_detected:
-            print(f'{r}:{c}', end=' ')
             loop_count += 1
     return loop_count
 
@@ -106,7 +113,7 @@ test_data1: str = """
 
 if __name__ == "__main__":
     print('running tests')
-    results1 = main(test_data1)
+    results1 = main(test_data1, status=False)
     print(results1)
-    # results2 = main(day6_data.test_data2)
-    # print(results2)
+    results2 = main(day6_data.test_data2, status=True)
+    print(results2)
