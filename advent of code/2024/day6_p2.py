@@ -63,21 +63,19 @@ def walk_grid(grid: NDArray[np.str_]) -> WalkGridResult:
     loop_detected: bool = False
     visited_states: set[tuple[Coords, Coords]] = set()
     while True:
-        visted_state: tuple[Coords, Coords] = (current_coords, direction)
-        if visted_state in visited_states:
+        current_state: tuple[Coords, Coords] = (current_coords, direction)
+        if current_state in visited_states:
             loop_detected = True
             break
         new_grid[current_coords] = 'x'
-        visited_states.add(visted_state)
+        visited_states.add(current_state)
         new_coords = current_coords + direction
         if not is_valid_coordinate(new_coords, new_grid):
             break
         if new_grid[new_coords] == '#':
             direction = change_direction(direction)
-            new_coords = current_coords + direction
-            if not is_valid_coordinate(new_coords, new_grid):
-                break
-        current_coords = new_coords
+        else:
+            current_coords = new_coords
     new_grid[start_point] = '^'
     # print(visited_states)
     # print_grid(new_grid)
