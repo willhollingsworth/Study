@@ -1,5 +1,6 @@
 """Advent of Code 2024 - Day 6."""  # noqa: INP001
 from dataclasses import dataclass
+from itertools import starmap
 
 import day6_data
 import numpy as np
@@ -12,11 +13,22 @@ class WalkGridResult:
     loop_detected: bool
 
 
+class Coords(tuple[int, int]):
+    """Tuple for holding and better adding of coordinates."""
+
+    def __new__(cls, row: int, col: int) -> 'Coords':
+        return super().__new__(cls, (int(row), int(col)))
+
+    def __add__(self, other: 'Coords') -> 'Coords':
+        """ Add two coordinates together."""
+        return Coords(*(s + o for s, o in zip(self, other)))
+
+
 def main(input_string: str, status: bool = False) -> int:
     """Implement Main day6 logic."""
-    grid = parse_input(input_string)
-    walked_grid = walk_grid(grid)
-    walked_coords = get_walked_coordinates(walked_grid.grid)
+    grid: NDArray[np.str_] = parse_input(input_string)
+    walked_grid: WalkGridResult = walk_grid(grid)
+    walked_coords: list[Coords] = get_walked_coordinates(walked_grid.grid)
     walked_count: int = len(walked_coords)
     loop_count: int = 0
     print('checking for loops')
@@ -37,44 +49,45 @@ def main(input_string: str, status: bool = False) -> int:
 
 def parse_input(input_string: str) -> NDArray[np.str_]:
     """Parse the input string into a 2d Numpy array."""
-    lines = input_string.strip().splitlines()
+    lines: list[str] = input_string.strip().splitlines()
     return np.array([list(line) for line in lines])
 
 
 def walk_grid(grid: NDArray[np.str_]) -> WalkGridResult:
     """Walk the grid and update the visited cells."""
-    coords = np.array(np.where(grid == '^')).flatten()
-    start_point: NDArray[np.int_] = coords.reshape(1, 2)  # (row, col)
-    direction: NDArray[np.int_] = np.array([-1, 0])  # row, col direction
-    new_grid = grid.copy()
-    retread_count: int = 0
+    coords_array = np.array(np.where(grid == '^')).transpose()
+    current_coords: Coords = Coords(*coords_array[0])
+    start_point: Coords = current_coords
+    direction: Coords = Coords(-1, 0)  # row, col
+    new_grid: NDArray[np.str_] = grid.copy()
     loop_detected: bool = False
-    for _ in range(10000):
-        if new_grid[tuple(coords)] == 'x':
-            retread_count += 1
-            if retread_count > 100:
-                loop_detected = True
-                break
-        else:
-            retread_count = 0
-        new_grid[tuple(coords)] = 'x'
-        new_coords = coords + direction
+    visited_states: set[tuple[Coords, Coords]] = set()
+    while True:
+        visted_state: tuple[Coords, Coords] = (current_coords, direction)
+        if visted_state in visited_states:
+            loop_detected = True
+            break
+        new_grid[current_coords] = 'x'
+        visited_states.add(visted_state)
+        new_coords = current_coords + direction
         if not is_valid_coordinate(new_coords, new_grid):
             break
-        if new_grid[tuple(new_coords)] == '#':
+        if new_grid[new_coords] == '#':
             direction = change_direction(direction)
-            new_coords = coords + direction
+            new_coords = current_coords + direction
             if not is_valid_coordinate(new_coords, new_grid):
                 break
-        coords = new_coords
-    new_grid[tuple(start_point)] = '^'
+        current_coords = new_coords
+    new_grid[start_point] = '^'
+    # print(visited_states)
+    # print_grid(new_grid)
     return WalkGridResult(grid=new_grid, loop_detected=loop_detected)
 
 
-def get_walked_coordinates(grid: NDArray[np.str_]) -> list[tuple[int, int]]:
+def get_walked_coordinates(grid: NDArray[np.str_]) -> list[Coords]:
     """Get the coordinates of the walked path."""
     walked_coords = np.where(grid == 'x')
-    return [(r, c) for r, c in zip(*walked_coords)]
+    return list(starmap(Coords, zip(*walked_coords)))
 
 
 def print_grid(grid: NDArray[np.str_]) -> None:
@@ -84,15 +97,15 @@ def print_grid(grid: NDArray[np.str_]) -> None:
     print()
 
 
-def change_direction(direction: NDArray[np.int_]) -> NDArray[np.int_]:
+def change_direction(direction: Coords) -> Coords:
     """Cycle through the directions."""
-    directions: list[list[int]] = [[-1, 0], [0, 1], [1, 0], [0, -1]]
-    index: int = directions.index(direction.tolist())
+    directions: list[Coords] = list(starmap(Coords, [(-1, 0), (0, 1), (1, 0), (0, -1)]))
+    index: int = directions.index(direction)
     next_index: int = (index + 1) % 4
-    return np.array(directions[next_index], dtype=np.int_)
+    return directions[next_index]
 
 
-def is_valid_coordinate(coords: NDArray[np.int_], grid: NDArray[np.str_]) -> bool:
+def is_valid_coordinate(coords: Coords, grid: NDArray[np.str_]) -> bool:
     """Check if the given coordinates are valid."""
     rows, cols = grid.shape
     return 0 <= coords[0] < rows and 0 <= coords[1] < cols
