@@ -3,6 +3,7 @@
 import numpy as np
 from numpy.typing import NDArray
 
+
 class Coords(tuple[int, int]):
     """Tuple for holding and better adding of coordinates."""
 
@@ -10,8 +11,12 @@ class Coords(tuple[int, int]):
         return super().__new__(cls, (int(row), int(col)))
 
     def __add__(self, other: 'Coords') -> 'Coords':
-        """ Add two coordinates together."""
+        """Add two coordinates together."""
         return Coords(*(s + o for s, o in zip(self, other)))
+
+    def __sub__(self, other: 'Coords') -> 'Coords':
+        """subtracting two coordinates."""
+        return Coords(*(s - o for s, o in zip(self, other)))
 
 
 def parse_str_to_grid(input_string: str) -> NDArray[np.str_]:
@@ -47,7 +52,3 @@ test_data1: str = """
 ............
 ............
 """
-
-if __name__ == '__main__':
-    result = main(test_data1)
-    print(f'Result: {result}')
